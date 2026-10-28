@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches and checkpoints
+.pytest_cache/
+.ipynb_checkpoints/
+runs/
+wandb/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Large files & Machine learning weights
+*.pt
+*.pth
+*.h5
+*.onnx
+models/*.pt
+models/*.pth
+models/*.h5
+
+# Datasets
+data/
+datasets/
+*.zip
+*.tar.gz
+
+# OS specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE configs
+.vscode/
+.idea/
+
