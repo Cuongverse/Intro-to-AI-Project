@@ -164,13 +164,13 @@ Dự án tách biệt môi trường huấn luyện nặng (trên đám mây) v�
 
 ## 👥 7. Phân công Vai trò Nhóm (Team Roles)
 
-| Thành viên | Vai trò | Nhiệm vụ cụ thể |
-| :--- | :--- | :--- |
-| **TV1** | **System Architect & Lead** | Thiết kế kiến trúc kết nối 2 bài báo; lập bảng ánh xạ thực thể BFO (`Material` $\rightarrow$ `Disposition` $\rightarrow$ `Role`); vẽ sơ đồ Ontology trên Protégé. |
-| **TV2** | **Data Engineer** | Tải dataset 7.3k ảnh từ Roboflow; viết script `scripts/remap_labels.py` gom 18 nhãn về 6 nhãn chuẩn; cấu hình `data.yaml` và thống kê phân phối dữ liệu. |
-| **TV3** | **ML Engineer** | Thiết lập notebook `train_yolov12_colab.ipynb`; chạy huấn luyện YOLOv12 trên GPU T4 của Google Colab; trích xuất `best.pt` và các biểu đồ đánh giá (mAP, Confusion Matrix). |
-| **TV4** | **Knowledge Engineer** | Lập trình module `knowledge/waste_rules.py` hiện thực hóa cấu trúc lớp BFO và hàm suy diễn vai trò rác dựa trên ngữ cảnh theo đúng 3 điều kiện của Paper 2. |
-| **TV5** | **UI/UX & Integration** | Xây dựng giao diện `app.py` bằng Streamlit; tích hợp mô hình `best.pt` và bộ suy luận `waste_rules.py`; thiết kế thanh chọn ngữ cảnh và chạy kiểm thử kịch bản demo. |
+| Thành viên | MSSV | Vai trò | Nhiệm vụ cụ thể |
+| :--- | :--- | :--- | :--- |
+| **Đinh Việt Dũng** | 202516349 | **System Architect & Lead** | Thiết kế kiến trúc kết nối 2 bài báo; lập bảng ánh xạ thực thể BFO (`Material` $\rightarrow$ `Disposition` $\rightarrow$ `Role`); vẽ sơ đồ Ontology trên Protégé. |
+| **Trần Tuán Anh** | 20235266 | **Data Engineer** | Tải dataset 7.3k ảnh từ Roboflow; viết script `scripts/remap_labels.py` gom 18 nhãn về 6 nhãn chuẩn; cấu hình `data.yaml` và thống kê phân phối dữ liệu. |
+| **Nguyễn Đức Cường** | 202516333 | **ML Engineer** | Thiết lập notebook `train_yolov12_colab.ipynb`; chạy huấn luyện YOLOv12 trên GPU T4 của Google Colab; trích xuất `best.pt` và các biểu đồ đánh giá (mAP, Confusion Matrix). |
+| **Trác Văn An** | 202516298 | **Knowledge Engineer** | Lập trình module `knowledge/waste_rules.py` hiện thực hóa cấu trúc lớp BFO và hàm suy diễn vai trò rác dựa trên ngữ cảnh theo đúng 3 điều kiện của Paper 2. |
+| **Đoàn Minh Đức** | 202516343 | **UI/UX & Integration** | Xây dựng giao diện `app.py` bằng Streamlit; tích hợp mô hình `best.pt` và bộ suy luận `waste_rules.py`; thiết kế thanh chọn ngữ cảnh và chạy kiểm thử kịch bản demo. |
 
 ---
 
