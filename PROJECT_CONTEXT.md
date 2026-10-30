@@ -1,94 +1,74 @@
-# PROJECT SPECIFICATION: AI WASTE CLASSIFICATION AGENT
+# PROJECT SPECIFICATION: CONTEXT-AWARE AI WASTE SORTING & ADVISORY AGENT
 
-## 1. Tổng quan Dự án (Project Overview)
+## 1. Tổng quan Dự án & Nền tảng Nghiên cứu (Project Overview & Academic Grounding)
 
-* **Tên dự án:** Waste Classification & Recycling Advisory System (Tác tử AI phân loại rác & Gợi ý tái chế).
-* **Mục tiêu:** Xây dựng hệ thống tác tử thông minh tiếp nhận ảnh rác thải, phân loại chính xác nhóm rác, đồng thời liên kết cơ sở tri thức luật/quy chuẩn để hướng dẫn bỏ đúng thùng rác và cách thức xử lý/tái chế tại nguồn.
-* **Đối tượng thực hiện:** Nhóm 5 người.
+* **Tên dự án:** Context-Aware Waste Detection & Ontological Recycling Advisory System (Tác tử AI nhận diện rác thải và Tư vấn tái chế dựa trên Bản thể học Ngữ cảnh).
+* **Bối cảnh ứng dụng:** Hệ thống Trợ lý Thị giác tại Trạm phân loại rác thông minh (Smart Sorting Station), kết hợp nhận diện thực thể vật lý qua camera và suy luận ngữ cảnh (Human-in-the-loop) để phân luồng tái chế chính xác.
+* **Quy mô thực hiện:** Nhóm 5 sinh viên – Học phần Nhập môn Trí tuệ Nhân tạo (HUST).
+* **Cơ sở bài báo khoa học nền tảng (2025):**
+  1. **Thị giác máy tính (Perception Layer):** Dipo, M.H. et al. (2025). *"Real-Time Waste Detection and Classification Using YOLOv12-Based Deep Learning Model"*, Digital 2025, 5, 19. Kế thừa kiến trúc **YOLOv12** (tích hợp khối *R-ELAN* và *Area Attention*) cùng bộ dữ liệu thực tế của nhóm tác giả.
+  2. **Biểu diễn tri thức & Suy luận (Reasoning Layer):** Milivinti, E. (2025). *"The Interoperability Challenge in Waste Management: An Ontological Approach"*, FOIS 2025 / CEUR-WS Vol-4111. Ứng dụng khung **Basic Formal Ontology (BFO)** để định nghĩa "rác" là một **Vai trò phụ thuộc ngữ cảnh (*Context-dependent Role*)** thay vì thuộc tính vật lý cố định.
 
 ---
 
-## 2. Nền tảng Lý thuyết môn học (HUST AI Framework Alignment)
+## 2. Nền tảng Lý thuyết Môn học (HUST AI Framework Alignment)
 
-| Thành phần PEAS | Mô tả chi tiết | Tiêu chí & Thông số cụ thể |
+### 2.1. Mô hình Tác tử PEAS
+
+| Thành phần PEAS | Mô tả chi tiết trong Hệ thống | Tiêu chí & Thông số Kỹ thuật |
 | :--- | :--- | :--- |
-| **P**<br>*(Performance Measure)*<br>**Độ đo hiệu năng** | • Tối đa hóa độ chính xác nhận diện tổng thể.<br>• Phạt nặng (*Zero-tolerance*) lỗi bỏ sót rác nguy hại sang nhóm rác sinh hoạt thông thường.<br>• Tối ưu thời gian đáp ứng thời gian thực.<br>• Đảm bảo độ tin cậy trước khi đưa khuyến nghị.<br>• Tuân thủ 100% quy chuẩn phân loại rác tại nguồn. | • $\text{Accuracy} \ge 90\%$, $\text{Precision}/\text{Recall}$ cân bằng.<br>• Hàm phạt cực đại với lỗi False Negative ở nhóm Pin/Ắc quy/Chất độc hại.<br>• Thời gian phản hồi tác tử $\le 1.5$ giây.<br>• Ngưỡng tin cậy $\ge 0.6$ (dưới ngưỡng sẽ kích hoạt trạng thái yêu cầu chụp lại). |
-| **E**<br>*(Environment)*<br>**Môi trường** | • Vật thể rác thải sinh hoạt, công cộng đa dạng hình dạng, dơ bẩn, móp méo, che khuất một phần.<br>• Điều kiện chụp: ánh sáng ngẫu nhiên, nền bàn, sàn hoặc khay nhận rác.<br>• Hệ thống 4 nhóm thùng rác quy chuẩn tại nguồn. | • **Nhóm rác:** Nhựa, Giấy, Kim loại, Thủy tinh, Hữu cơ, Nguy hại.<br>• **Thùng rác đích:**<br>  - 🟡 *Tái chế* (Chai nhựa, lon, giấy sạch)<br>  - 🟢 *Hữu cơ* (Thức ăn thừa, lá cây)<br>  - ⚪ *Rác còn lại / Vô cơ* (Túi bẩn, hộp xốp)<br>  - 🔴 *Nguy hại* (Pin, ắc quy, bóng đèn) |
-| **A**<br>*(Actuators)*<br>**Cơ cấu tác động** | • Giao diện tương tác người dùng (Streamlit Dashboard).<br>• Cơ chế phát tín hiệu thị giác phân loại.<br>• Bộ sinh khuyến nghị quy trình xử lý tại nguồn.<br>• Cơ chế cảnh báo nguy hiểm khẩn cấp. | • Hiển thị Bounding Box quanh vật thể kèm nhãn & điểm Confidence (%).<br>• Thẻ chỉ thị đổi màu theo màu thùng rác quy chuẩn.<br>• Văn bản hướng dẫn chi tiết các bước sơ chế (vd: súc rửa, ép xẹp, bọc kín).<br>• Hộp cảnh báo nổi bật (*Alert popup*) đối với rác độc hại/cháy nổ. |
-| **S**<br>*(Sensors)*<br>**Cảm biến** | • Thiết bị thu nhận tín hiệu hình ảnh từ môi trường thực tế.<br>• Cổng nhận dữ liệu số từ người dùng.<br>• Bộ tiền xử lý ma trận điểm ảnh chuẩn hóa. | • Webcam / Camera tích hợp (luồng video frames trực tiếp).<br>• Module upload file ảnh kỹ thuật số (`.jpg`, `.jpeg`, `.png`).<br>• Bộ tiền xử lý chuẩn hóa kích thước $640 \times 640$, không gian màu RGB và dải giá trị pixel $[0, 1]$. |
+| **P**<br>*(Performance Measure)*<br>**Độ đo hiệu năng** | • Tối đa hóa độ chính xác định vị và nhận diện thực thể vật liệu.<br>• Đảm bảo tính nhất quán ngữ nghĩa khi suy diễn vai trò rác theo ngữ cảnh.<br>• Phạt nặng (*Zero-tolerance*) lỗi phân luồng nhầm rác nguy hại/nhiễm bẩn vào luồng tái chế sạch.<br>• Tối ưu tốc độ suy luận thời gian thực. | • Thị giác: $\text{mAP@0.5} \ge 0.78$, $\text{F1-Score} \ge 0.75$.<br>• Suy luận: Độ chính xác gán nhãn `Role` đạt $100\%$ theo bảng chân trị BFO.<br>• Thời gian phản hồi tổng thể $\le 0.5$ giây/ảnh trên CPU.<br>• Ngưỡng độ tin cậy (*Confidence threshold*) $\ge 0.50$. |
+| **E**<br>*(Environment)*<br>**Môi trường** | • Trạm thu gom rác thực tế tại trường học/tòa nhà: ánh sáng thay đổi, vật thể móp méo, chồng lấp.<br>• Không gian trạng thái kết hợp giữa hình thái vật lý và điều kiện ngữ cảnh (độ sạch, hạ tầng thu gom). | • **6 Thực thể Vật liệu (Material Entities):** `Plastic`, `Metal_Battery`, `Paper`, `Glass`, `Organic`, `Medical`.<br>• **4 Phân luồng đích (Target Streams):**<br>  - 🔵 *Tài nguyên Tái chế* (`Recyclable Resource`)<br>  - 🟢 *Phân hủy Sinh học* (`Compostable / Organic`)<br>  - ⚫ *Rác Còn lại / Xử lý nhiệt* (`Residual Waste`)<br>  - 🔴 *Rác Nguy hại / Y tế* (`Hazardous / Biohazard Waste`) |
+| **A**<br>*(Actuators)*<br>**Cơ cấu tác động** | • Giao diện hiển thị trực quan Streamlit.<br>• Bộ giải thích suy luận Bản thể học (*Explainable Ontology Card*).<br>• Hệ thống cảnh báo an toàn và hướng dẫn sơ chế tại nguồn. | • Vẽ Bounding Box + Nhãn thực thể vật lý + Độ tin cậy ($\%$).<br>• Hiển thị chuỗi suy diễn: `Material Entity` $\rightarrow$ `Disposition` $\rightarrow$ `Context` $\rightarrow$ `Assigned Role`.<br>• Xuất chỉ dẫn hành động cụ thể (ví dụ: tháo nắp, tráng sạch hoặc cách ly khẩn cấp). |
+| **S**<br>*(Sensors)*<br>**Cảm biến** | • Cảm biến hình ảnh kỹ thuật số.<br>• Giao diện thu nhận tín hiệu ngữ cảnh (*Human-in-the-loop Context Input*) bù đắp cho phần khuất mà camera 2D không thấy được. | • Camera/Webcam hoặc cổng tải file ảnh (`.jpg`, `.png`) chuẩn hóa về kích thước $640 \times 640$.<br>• Nút chọn tình trạng vật lý (Sạch / Bẩn dầu mỡ / Nhiễm hóa chất) và trạng thái hạ tầng tại chỗ. |
 
-#### Bảng Đặc tính Môi trường (Russell & Norvig Framework):
-| Đặc tính môi trường | Đánh giá | Giải thích học thuật trong bài toán |
-| :--- | :--- | :--- |
-| **Observability** *(Khả năng quan sát)* | **Partially Observable** | Camera 2D chỉ thấy bề mặt bên ngoài ở một góc chụp; không quan sát được mặt sau, trọng lượng hoặc bên trong bao bì kín. |
-| **Agents** *(Số lượng tác tử)* | **Single-Agent** | Tác tử hoạt động độc lập để phân loại ảnh rác (hỗ trợ người dùng - Human-in-the-loop). |
-| **Determinism** *(Tính tiền định)* | **Stochastic** | Điều kiện môi trường có yếu tố ngẫu nhiên (góc chụp, độ phản quang, biến dạng cơ học của rác). |
-| **Episodic / Sequential** *(Giai đoạn)* | **Episodic** | Mỗi lần đưa ảnh rác vào là một phiên xử lý độc lập, không phụ thuộc vào kết quả của các lần chụp trước đó. |
-| **Dynamism** *(Tính biến đổi)* | **Static** | Ảnh tĩnh tải lên không thay đổi trong suốt thời gian tác tử phân tích và suy luận luật. *(Semi-dynamic nếu xử lý video stream liên tục)*. |
-| **Continuity** *(Tính liên tục)* | **Continuous / Discrete** | Không gian cảm biến là **Liên tục** (điểm ảnh, toạ độ bounding box); không gian quyết định là **Rời rạc** (tập nhãn rác và 4 loại thùng). |
-| **Known / Unknown** *(Mức độ hiểu biết)* | **Known** | Quy chuẩn phân loại rác và tập luật xử lý đã được định nghĩa tường minh trong cơ sở tri thức. |
-
-* **Mô hình Học máy $(T, P, E)$:**
-  * **T (Task):** Phân loại ảnh rác vào các lớp định danh (Nhựa, Giấy, Kim loại, Thủy tinh, Hữu cơ, Nguy hại).
-  * **P (Performance):** Accuracy, Precision, Recall, Confusion Matrix trên tập kiểm thử.
-  * **E (Experience):** Tập dữ liệu ảnh có gán nhãn được chia tỷ lệ chuẩn **80% Train – 20% Test** (kiểm soát hiện tượng Overfitting).
-
-* **Cơ sở tri thức (Knowledge Base & Rules):**
-  * Sử dụng cấu trúc luật sản xuất $\text{IF... THEN...}$ và biểu diễn thuộc tính $\text{Prop}(\text{Đối tượng}, \text{Thuộc tính}, \text{Giá trị})$ để ánh xạ từ kết quả Computer Vision sang hành động phân loại/tái chế.
+### 2.2. Đặc tính Môi trường (Russell & Norvig Framework)
+* **Partially Observable (Quan sát được một phần):** Camera 2D chỉ nhìn thấy bề mặt ngoài của vật thể, không thể tự biết bên trong vỏ chai còn tồn dư hóa chất độc hại hay không $\rightarrow$ Đây chính là lý do học thuật bắt buộc phải có **Tầng nhập ngữ cảnh (Context Ingestion)** và **BFO Ontology**.
+* **Single-Agent & Human-in-the-Loop:** Tác tử AI đóng vai trò hệ chuyên gia tư vấn tương tác trực tiếp với người phân loại.
+* **Stochastic & Episodic:** Ảnh đầu vào có nhiễu ngẫu nhiên về góc chụp và độ sáng; mỗi lượt phân loại một lô rác là một phiên xử lý độc lập.
 
 ---
 
-## 3. Kiến trúc Hệ thống & Luồng Dữ liệu (System Architecture)
+## 3. Thiết kế Chi tiết Hai Tầng Cốt lõi (Core Technical Design)
 
-```text
-[Input Image (User/Webcam)] 
-         │
-         ▼
-[Computer Vision: YOLOv8 / Pre-trained CNN]
-         │ (Tên nhãn rác: 'plastic_bottle', 'battery',...)
-         ▼
-[Knowledge Base / Rule Engine: Python dict/rules]
-         │ (Thùng rác, Độ độc hại, Quy trình xử lý)
-         ▼
-[UI Layer: Streamlit Dashboard (Local Offline Web App)]
-```
+### 3.1. Tầng Thị giác & Tiền xử lý Dữ liệu (Dựa trên Paper 1 - YOLOv12)
+Bộ dữ liệu gốc trên Roboflow (7.288 ảnh) bị phân mảnh thành 18 lớp không đồng nhất và chứa nhãn nhiễu. Nhóm thực hiện chuẩn hóa bằng script `scripts/remap_labels.py` theo bảng ánh xạ sau:
 
-* **Công nghệ sử dụng:**
-  * Ngôn ngữ: `Python 3.10+`
-  * Thị giác máy tính: `Ultralytics (YOLOv8)` hoặc `TensorFlow/Keras`
-  * Giao diện: `Streamlit`
-  * Cơ sở tri thức: Module Python rule-based (dictionary/functions) hoặc `Owlready2`
-  * Nguồn dữ liệu: Open Datasets (**TACO Dataset**, **Trash-ICRA19**, hoặc **Garbage Classification** trên Kaggle).
+| Mã lớp mới (`class_id`) | Tên Thực thể Chuẩn (`Material Entity`) | Các lớp gốc từ Roboflow (18 classes) được gộp vào | Đặc tính Cố hữu (`BFO Disposition`) |
+| :---: | :--- | :--- | :--- |
+| **`0`** | **`Plastic`** | `PET Bottle`, `HDPE Plastic`, `Single-Use-Plastic`, `Single-layer Plastic`, `Squeeze Tube`, `Red Bottle` | `MechanicalRecyclability` |
+| **`1`** | **`Metal_Battery`** | `Battery` | `HeavyMetalToxicity`, `FireHazard`, `MaterialRecovery` |
+| **`2`** | **`Paper`** | `Paper`, `Cardboard Paper`, `Newspaper` | `CelluloseRecyclability`, `Biodegradability` |
+| **`3`** | **`Glass`** | `Glass`, `Glass-Bottle` | `InfiniteRecyclability`, `SharpPhysicalHazard` (nếu vỡ) |
+| **`4`** | **`Organic`** | `BiologicalWaste` | `Compostability` |
+| **`5`** | **`Medical`** | `Mask`, `Glove`, `Medicine`, `syringe` | `BiohazardInfectious`, `ChemicalToxicity` |
+| *Loại bỏ* | *Bỏ qua (Ignore)* | `UNIT BOX` (Nhãn lỗi không phải thực thể rác) | — |
+
+### 3.2. Tầng Bản thể học & Luật Suy diễn (Dựa trên Paper 2 - BFO Framework)
+Theo *Milivinti (2025)*, một thực thể vật chất chỉ nhận vai trò là **Rác (`Waste Role`)** khi thỏa mãn 3 điều kiện:
+1. **(a)** Công năng thiết kế ban đầu (*Function*) không còn được thực hiện.
+2. **(b)** Có ý định loại bỏ (*Intention of disposal*).
+3. **(c)** Không có phương án khả thi về mặt kinh tế/kỹ thuật để hiện thực hóa các đặc tính hữu ích (*Dispositions*) của vật thể trong ngữ cảnh hiện tại.
+
+**Bảng quy tắc suy diễn Vai trò (`Role Assignment Matrix`) trong `knowledge/waste_rules.py`:**
+
+| Thực thể (`MaterialEntity`) | Đặc tính (`Disposition`) | Ngữ cảnh Vật lý (`ContextState`) | Vai trò được gán (`BFO Role`) | Phân luồng Thùng rác & Hành động |
+| :--- | :--- | :--- | :--- | :--- |
+| `Plastic` / `Paper` | `Recyclability` | `Clean_Intact` (Sạch) | **`RecyclableResourceRole`** | 🔵 **Thùng Tái chế:** Đổ hết nước, bóp dẹp để tối ưu thể tích. |
+| `Plastic` / `Paper` | `Recyclability` | `Food_Soiled` (Dính dầu mỡ/thức ăn) | **`ResidualWasteRole`** | ⚫ **Thùng Rác còn lại:** Dầu mỡ làm hỏng bột giấy/hạt nhựa, không tái chế kinh tế được (Điều kiện c). |
+| `Plastic` / `Glass` | `Recyclability` | `Chemical_Contaminated` (Nhiễm hóa chất) | **`HazardousWasteRole`** | 🔴 **Thùng Nguy hại:** Bọc kín, cách ly hoàn toàn khỏi luồng tái chế. |
+| `Glass` | `InfiniteRecyclability` | `Broken_Shattered` (Đã vỡ vụn) | **`PhysicalHazardWasteRole`** | 🟠 **Cảnh báo An toàn:** Bọc nhiều lớp giấy dày trước khi bỏ để tránh gây thương tích cho công nhân. |
+| `Metal_Battery` | `HeavyMetalToxicity` | *Mọi trạng thái thải bỏ* | **`HazardousEWasteRole`** | 🔴 **Điểm Thu hồi Pin/Điện tử:** Tuyệt đối không bỏ thùng rác gia đình. |
+| `Medical` | `BiohazardInfectious` | *Mọi trạng thái thải bỏ* | **`BiohazardMedicalRole`** | 🔴 **Thùng Y tế / Nguy hại sinh học:** Khử khuẩn, bỏ túi kín theo quy chuẩn y tế. |
+| `Organic` | `Compostability` | `Uncontaminated` | **`BiomassResourceRole`** | 🟢 **Thùng Hữu cơ:** Dùng ủ phân compost hoặc làm khí sinh học. |
 
 ---
 
-## 4. Phân công Vai trò (Team Roles)
+## 4. Kế hoạch Thực hiện & Phân bổ Môi trường (Execution Plan)
 
-* **TV1 (PM & System Architect):** Thiết lập kiến trúc PEAS, $(T, P, E)$, cấu trúc thư mục và liên kết các module.
-* **TV2 (Data Engineer):** Tải Open Dataset, làm sạch ảnh, chia folder `train/` (80%) và `val/test/` (20%).
-* **TV3 (ML Engineer):** Viết script train/fine-tune mô hình và xuất file trọng số (`best.pt` hoặc `.h5`).
-* **TV4 (Knowledge Engineer):** Xây dựng module tra cứu luật `waste_rules.py` (nhập nhãn $\rightarrow$ trả về thùng rác, hướng dẫn).
-* **TV5 (UI/UX & Testing):** Viết giao diện `app.py` bằng Streamlit, tích hợp mô hình và thực hiện test kịch bản demo.
-
----
-
-## 5. Cấu trúc Thư mục Dự án Dự kiến (Target Directory Structure)
-
-```text
-waste_ai_project/
-│
-├── data/
-│   ├── train/               # 80% ảnh gán nhãn
-│   └── test/                # 20% ảnh kiểm thử độc lập
-│
-├── models/
-│   └── best.pt              # Trọng số mô hình sau khi train
-│
-├── knowledge/
-│   └── waste_rules.py       # Cơ sở tri thức và tập luật gợi ý tái chế
-│
-├── train.py                 # Script huấn luyện / đánh giá mô hình
-├── app.py                   # Ứng dụng giao diện Web Streamlit
-├── requirements.txt         # Danh sách thư viện (ultralytics, streamlit, opencv,...)
-└── PROJECT_CONTEXT.md       # File bối cảnh dự án này
-```
+1. **Môi trường Đám mây (Google Colab):**
+   * Dành riêng cho việc tải bộ dữ liệu 7.3k ảnh, chạy `scripts/remap_labels.py` và huấn luyện mô hình YOLOv12 trên GPU NVIDIA T4.
+   * Đầu ra thu hoạch: Tệp `best.pt` và bộ ảnh biểu đồ đánh giá (`confusion_matrix.png`, `results.png`).
+2. **Môi trường Máy trạm Cá nhân (Local VS Code):**
+   * Chỉ lưu mã nguồn nhẹ (`app.py`, `knowledge/waste_rules.py`, `scripts/remap_labels.py`) và tệp trọng số `best.pt` đã huấn luyện xong.
+   * Chạy giao diện Web Streamlit phục vụ demo trực tiếp trên lớp.

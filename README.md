@@ -1,8 +1,9 @@
-# ♻️ Waste Classification & Recycling Advisory System
-### *Tác tử AI Phân loại Rác thải & Hướng dẫn Tái chế Thông minh*
+# ♻️ Context-Aware Waste Detection & Ontological Recycling Advisory System
+### *Tác tử AI Nhận diện Rác thải & Tư vấn Tái chế dựa trên Bản thể học Ngữ cảnh*
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
-[![Framework](https://img.shields.io/badge/YOLOv8-Ultralytics-orange.svg)](https://docs.ultralytics.com/)
+[![Framework](https://img.shields.io/badge/YOLOv12-Ultralytics-orange.svg)](https://docs.ultralytics.com/)
+[![Ontology](https://img.shields.io/badge/Ontology-BFO%202020-purple.svg)](https://basic-formal-ontology.org/)
 [![UI](https://img.shields.io/badge/Streamlit-App-red.svg)](https://streamlit.io/)
 [![Course](https://img.shields.io/badge/HUST-Intro--to--AI-brightgreen.svg)](https://hust.edu.vn/)
 
@@ -10,42 +11,45 @@
 
 ## 📌 1. Giới thiệu Tổng quan (Project Overview)
 
-Dự án **Waste Classification & Recycling Advisory System** được phát triển trong khuôn khổ môn học **Nhập môn Trí tuệ Nhân tạo (HUST)**. 
+Dự án **Context-Aware Waste Detection & Ontological Recycling Advisory System** được phát triển trong khuôn khổ học phần **Nhập môn Trí tuệ Nhân tạo (HUST)**. Khắc phục hạn chế của các hệ thống phân loại rác truyền thống vốn coi "rác" là một thuộc tính tĩnh của vật liệu, hệ thống này kết hợp hai công trình nghiên cứu mới công bố năm **2025**:
 
-Hệ thống đóng vai trò như một **Tác tử Thông minh (Intelligent Agent)** toàn diện:
-1. **Tiếp nhận & Nhận diện (Perception):** Sử dụng thị giác máy tính (Computer Vision) để phát hiện và phân loại các loại rác thải từ hình ảnh tải lên hoặc camera trực tiếp.
-2. **Suy luận & Ra quyết định (Reasoning):** Truy vấn cơ sở tri thức (Knowledge Base) và hệ luật chuyên gia (Rule Engine) để xác định mức độ nguy hại, màu thùng rác quy chuẩn và quy trình xử lý, tái chế tương ứng tại nguồn.
-3. **Tương tác (Action):** Hiển thị trực quan kết quả, bounding box, thông tin chỉ dẫn chi tiết trên giao diện Web Streamlit dễ sử dụng.
+1. **Tầng Cảm nhận Thị giác (Perception Layer - YOLOv12):** Kế thừa kiến trúc **YOLOv12** (*Dipo et al., 2025*) tích hợp cơ chế *Area Attention* và *R-ELAN* giúp định vị và trích xuất chính xác thực thể vật chất (*Material Entity*) của vật thể trong thời gian thực.
+2. **Tầng Suy luận Bản thể học Ngữ cảnh (Reasoning Layer - BFO Ontology):** Ứng dụng khung **Basic Formal Ontology (BFO)** (*Milivinti, 2025*), định nghĩa "rác" hay "tài nguyên tái chế" là một **Vai trò động (*Role*)** phụ thuộc vào sự kết hợp giữa **Đặc tính cố hữu (*Disposition*)** của vật liệu và **Ngữ cảnh vật lý/kinh tế (*Context*)** tại thời điểm phân loại.
+3. **Tầng Tương tác Trạm phân loại (Human-in-the-loop Action Layer):** Giao diện Web Streamlit tại trạm thu gom thông minh, kết hợp kết quả nhận diện từ camera với thông tin ngữ cảnh để đưa ra phán quyết thùng rác quy chuẩn và quy trình sơ chế tại nguồn.
 
 ---
 
 ## 🧠 2. Nền tảng Lý thuyết AI (AI Framework Alignment)
 
-Hệ thống được thiết kế bám sát chặt chẽ các nguyên lý cốt lõi của môn học:
-
-### 2.1. Mô hình Tác tử PEAS (Phát triển từ bài toán Tác tử nhặt rác)
+### 2.1. Mô hình Tác tử PEAS
 * **P (Performance Measure - Độ đo hiệu năng):**
-  * Độ chính xác phân loại tổng thể $\ge 90\%$.
-  * Giảm thiểu tối đa sai sót nghiêm trọng (đặc biệt không nhầm rác nguy hại thành rác sinh hoạt).
-  * Thời gian phản hồi tác tử $< 1.5$s trên ảnh đơn.
+  * Chỉ số định vị và phân loại vật liệu: $\text{mAP@0.5} \ge 0.78$, $\text{F1-Score} \ge 0.75$ trên tập kiểm thử đã chuẩn hóa.
+  * Tỷ lệ suy diễn đúng vai trò (*Role Assignment*) theo tiêu chuẩn BFO đạt $100\%$ dựa trên tổ hợp *(Thực thể + Ngữ cảnh)*.
+  * Không bỏ sót nhóm mang đặc tính nguy hại (`ToxicityHazard`) sang luồng rác sinh hoạt thông thường.
+  * Thời gian phản hồi suy luận trên ảnh đơn $< 0.5\text{s}$ (trên CPU laptop cá nhân).
 * **E (Environment - Môi trường):**
-  * Môi trường thực tế: Rác sinh hoạt, rác công cộng với góc chụp đa dạng, bị biến dạng, bẩn hoặc che khuất một phần.
-  * Hệ thống phân loại rác đích: Thùng Tái chế (Vàng/Xanh dương), Thùng Hữu cơ (Xanh lá), Thùng Rác vô cơ/còn lại (Xám/Đen), Thùng Rác nguy hại (Đỏ/Cam).
+  * Trạm phân loại rác tại nguồn (tòa nhà, trường học) với điều kiện ánh sáng đa dạng, vật thể có thể bị móp méo hoặc chồng lấp.
+  * Môi trường **Quan sát được một phần (*Partially Observable*)**: Camera 2D nhận diện được hình thái bề mặt vật liệu nhưng cần bổ sung tín hiệu ngữ cảnh (độ nhiễm bẩn hóa chất/dầu mỡ, tính nguyên vẹn) từ người dùng hoặc cảm biến phụ trợ.
 * **A (Actuators - Cơ cấu tác động):**
-  * Giao diện Streamlit hiển thị Bounding Box, tên phân loại, thanh đo độ tin cậy (Confidence score).
-  * Hộp cảnh báo màu thùng rác và bản hướng dẫn quy trình sơ chế/tái chế rác tại nguồn.
+  * Giao diện Streamlit hiển thị Bounding Box, nhãn thực thể vật chất và điểm độ tin cậy (*Confidence score*).
+  * Thẻ Phán quyết Suy luận (*Ontological Reasoning Card*) giải thích rõ: Thực thể $\rightarrow$ Đặc tính cố hữu $\rightarrow$ Vai trò theo ngữ cảnh $\rightarrow$ Thùng rác đích & Hướng dẫn xử lý.
 * **S (Sensors - Cảm biến):**
-  * Cảm biến ảnh kỹ thuật số qua Webcam hoặc module tải tệp ảnh (`.jpg`, `.png`).
+  * Camera/Webcam hoặc module tải tệp ảnh kỹ thuật số (`.jpg`, `.png`).
+  * Bộ chọn ngữ cảnh (*Context Selectors*) trên giao diện đóng vai trò cảm biến trạng thái vật lý và điều kiện hạ tầng thu gom.
 
-### 2.2. Mô hình Học máy $(T, P, E)$
-* **T (Task - Nhiệm vụ):** Phân loại và định vị rác thải vào các nhóm: Nhựa (*Plastic*), Giấy (*Paper*), Kim loại (*Metal*), Thủy tinh (*Glass*), Hữu cơ (*Organic*), Nguy hại (*Hazardous - Pin, ắc quy, bóng đèn,...*).
-* **P (Performance - Đánh giá hiệu năng):** Accuracy, Precision, Recall, F1-Score và Ma trận nhầm lẫn (Confusion Matrix) trên tập kiểm thử độc lập.
-* **E (Experience - Kinh nghiệm):** Tập dữ liệu ảnh có gán nhãn được phân chia theo chuẩn **80% Train – 20% Test/Validation** để chống hiện tượng quá khớp (Overfitting).
+### 2.2. Mô hình Học máy $(T, P, E)$ ở Tầng Thị giác
+* **T (Task - Nhiệm vụ):** Phát hiện đối tượng (*Object Detection*) và phân loại thực thể vật chất vào 6 nhóm chuẩn hóa: `Plastic`, `Metal_Battery`, `Paper`, `Glass`, `Organic`, `Medical`.
+* **P (Performance - Đánh giá):** $\text{Precision}$, $\text{Recall}$, $\text{F1-Score}$, $\text{mAP@0.5}$, $\text{mAP@0.5:0.95}$ và Ma trận nhầm lẫn (*Confusion Matrix*).
+* **E (Experience - Kinh nghiệm):** Tập dữ liệu thực tế từ nghiên cứu của *Dipo et al. (2025)* (~7.300 ảnh), được tiền xử lý gom nhãn từ 18 lớp phân mảnh về 6 lớp vật liệu cốt lõi để khắc phục hiện tượng nhiễu và mất cân bằng dữ liệu.
 
-### 2.3. Cơ sở Tri thức & Hệ luật (Knowledge Base & Rules)
-* Biểu diễn tri thức dạng thuộc tính: $\text{Prop}(\text{Đối tượng}, \text{Thuộc tính}, \text{Giá trị})$.
-* Áp dụng suy diễn tiến với luật sản xuất:
-  $$\text{IF } \text{Class} = \text{'Battery'} \text{ THEN } \text{Bin} = \text{'Nguy hại'} \land \text{Action} = \text{'Không vứt thùng thông thường, đem đến điểm thu gom pin'}$$
+### 2.3. Biểu diễn Tri thức & Suy luận BFO (Knowledge Representation)
+Dựa trên *Milivinti (2025)*, tri thức không viết dưới dạng `if-else` tĩnh mà được mô hình hóa qua 4 thực thể BFO:
+* **Material Entity ($\text{BFO:0000040}$):** Thực thể vật chất độc lập do YOLOv12 phát hiện (ví dụ: `PlasticBottle`, `Battery`).
+* **Function ($\text{BFO:0000034}$):** Công năng thiết kế ban đầu (ví dụ: `ContainmentFunction`, `EnergyStorageFunction`).
+* **Disposition ($\text{BFO:0000016}$):** Đặc tính vật lý cố hữu (`MechanicalRecyclability`, `ToxicityHazard`, `Biodegradability`).
+* **Role ($\text{BFO:0000023}$):** Vai trò được gán dựa trên điều kiện ngữ cảnh $(a, b, c)$:
+  $$\text{HasRole}(x, \text{RecyclableResource}) \iff \text{MaterialEntity}(x) \land \text{HasDisposition}(x, \text{Recyclability}) \land \text{Context}(x, \text{Clean}) \land \text{InfraAvailable}(\text{True})$$
+  $$\text{HasRole}(x, \text{NonRecyclableWaste}) \iff \text{MaterialEntity}(x) \land \text{HasDisposition}(x, \text{Recyclability}) \land \text{Context}(x, \text{ChemicalContaminated})$$
 
 ---
 
@@ -53,18 +57,13 @@ Hệ thống được thiết kế bám sát chặt chẽ các nguyên lý cốt
 
 ```mermaid
 flowchart TD
-    A[Input: Ảnh từ Webcam / File Upload] --> B[Computer Vision Module: YOLOv8]
-    B -->|Nhãn rác & Bounding Box| C[Rule Engine / Knowledge Base]
-    C -->|Ánh xạ luật: Thùng rác + Hướng dẫn xử lý| D[UI Streamlit Dashboard]
-    D --> E[Hiển thị kết quả & Khuyến nghị tái chế cho người dùng]
+    A[Input: Ảnh từ Webcam / File Upload] --> B[Perception Layer: YOLOv12 - best.pt]
+    B -->|Bounding Box + Nhãn Material Entity| C[Context Ingestion Layer]
+    D[Input Ngữ cảnh: Sạch / Bẩn dầu mỡ / Nhiễm hóa chất] --> C
+    C -->|Tổ hợp Thực thể + Trạng thái| E[Reasoning Layer: BFO Ontology Engine]
+    E -->|Đối chiếu Disposition & Điều kiện a, b, c| F[Gán Vai trò BFO: Resource / Waste / Hazardous]
+    F --> G[UI Streamlit: Hiển thị Thùng rác đích & Chỉ dẫn sơ chế]
 ```
-
-### Chi tiết luồng thực thi:
-1. Người dùng chụp ảnh qua webcam hoặc tải ảnh rác lên giao diện Streamlit.
-2. Mô-đun Computer Vision (**YOLOv8** hoặc **CNN**) nhận diện vị trí và gán nhãn rác (`plastic_bottle`, `battery`, `can`,...).
-3. Kết quả nhãn được gửi sang mô-đun **Knowledge Base (`knowledge/waste_rules.py`)**.
-4. Tập luật phân tích nhãn, xác định nhóm rác, màu thùng quy chuẩn và quy trình xử lý tại nguồn.
-5. Giao diện trực quan hóa thông tin kèm chỉ dẫn chi tiết cho người dùng.
 
 ---
 
@@ -73,44 +72,57 @@ flowchart TD
 ```text
 Intro-to-AI-Project/
 │
-├── data/                    # Dữ liệu ảnh phân loại (không commit lên git)
-│   ├── train/               # 80% ảnh gán nhãn huấn luyện
-│   └── test/                # 20% ảnh kiểm thử độc lập
+├── data/                           # [CHỈ LƯU LOCAL/COLAB - Đưa vào .gitignore, KHÔNG đẩy lên GitHub]
+│   ├── raw/                        # Dataset 18 lớp tải nguyên bản từ Roboflow (7.3k ảnh)
+│   ├── processed/                  # Dataset sau khi chạy script gộp về 6 lớp chuẩn Paper 1
+│   │   ├── train/                  # Ảnh (.jpg) và nhãn (.txt) dùng để huấn luyện
+│   │   ├── valid/                  # Ảnh và nhãn dùng để kiểm định trong lúc học
+│   │   └── test/                   # Ảnh và nhãn dùng để đánh giá độc lập
+│   └── data.yaml                   # File khai báo đường dẫn và danh sách 6 tên lớp cho YOLOv12
 │
-├── models/                  # Nơi lưu trọng số mô hình đã huấn luyện
-│   └── best.pt              # Trọng số YOLOv8 tốt nhất
+├── scripts/                        # Thư mục chứa script tiền xử lý dữ liệu
+│   └── remap_labels.py             # Script đọc file .txt, đổi chỉ số 18 lớp -> 6 lớp và lọc nhãn lỗi
 │
-├── knowledge/               # Cơ sở tri thức môn học
-│   └── waste_rules.py       # Tập luật IF...THEN và dữ liệu quy chuẩn rác
+├── notebooks/                      # Chứa Jupyter Notebook chạy trên đám mây
+│   └── train_yolov12_colab.ipynb   # Notebook tải data, huấn luyện YOLOv12 trên GPU T4 và xuất kết quả
 │
-├── notebooks/               # Jupyter notebooks thực nghiệm / EDA
+├── models/                         # Chứa kết quả sinh ra sau khi huấn luyện trên Colab
+│   ├── best.pt                     # Trọng số YOLOv12 đã huấn luyện hoàn chỉnh
+│   └── metrics/                    # Ảnh chụp Confusion Matrix, biểu đồ Loss/mAP phục vụ báo cáo
 │
-├── train.py                 # Script huấn luyện & xuất ma trận nhầm lẫn
-├── app.py                   # Ứng dụng giao diện Web Streamlit
-├── requirements.txt         # Danh mục các thư viện phụ thuộc
-├── PROJECT_CONTEXT.md       # Bối cảnh & tài liệu đặc tả dự án
-├── CONTRIBUTING.md          # Hướng dẫn đóng góp & làm việc nhóm
-└── README.md                # Tài liệu tổng quan dự án
+├── knowledge/                      # Tầng Suy luận Tri thức theo Paper 2 (BFO Ontology)
+│   ├── waste_bfo.owl               # File bản thể học chuẩn xuất từ phần mềm Protégé
+│   └── waste_rules.py              # Module Python định nghĩa MaterialEntity, Disposition, Role và hàm suy diễn
+│
+├── app.py                          # Ứng dụng giao diện Web Streamlit (Nối models/best.pt với knowledge/waste_rules.py)
+├── train.py                        # Script huấn luyện dự phòng bằng dòng lệnh
+├── requirements.txt                # Danh mục các thư viện cần cài đặt trên máy cá nhân
+├── .gitignore                      # Chặn đẩy thư mục data/ và môi trường ảo lên GitHub
+├── PROJECT_CONTEXT.md              # Tài liệu đặc tả kiến trúc và cơ sở học thuật của dự án
+├── CONTRIBUTING.md                 # Quy tắc làm việc nhóm và quản lý nhánh Git
+└── README.md                       # Tài liệu tổng quan và hướng dẫn sử dụng dự án
 ```
 
 ---
 
-## 🚀 5. Hướng dẫn Cài đặt & Chạy Thực nghiệm (Getting Started)
+## 🚀 5. Phân bổ Công cụ & Hướng dẫn Cài đặt (Getting Started)
 
-### 5.1. Yêu cầu Hệ thống
-* Hệ điều hành: Windows, macOS hoặc Linux.
-* Phiên bản Python: **Python 3.10+**.
-* Trình quản lý gói: `pip` hoặc `conda`.
+Dự án tách biệt môi trường huấn luyện nặng (trên đám mây) và môi trường chạy ứng dụng nhẹ (trên máy cá nhân):
 
-### 5.2. Các bước Cài đặt
+### 5.1. Giai đoạn Huấn luyện trên Đám mây (Google Colab - GPU T4)
+1. Mở tệp `notebooks/train_yolov12_colab.ipynb` trên **Google Colab** (chọn Runtime $\rightarrow$ Change runtime type $\rightarrow$ **T4 GPU**).
+2. Chạy các ô lệnh để tải bộ dữ liệu từ Roboflow Universe và thực thi `scripts/remap_labels.py` nhằm chuẩn hóa 18 lớp về 6 lớp.
+3. Huấn luyện mô hình YOLOv12 trong $50 - 100$ epochs (~2 giờ).
+4. Tải tệp trọng số `best.pt` và các biểu đồ trong thư mục `runs/detect/train` về máy tính, đặt vào thư mục `models/`.
 
+### 5.2. Giai đoạn Chạy Ứng dụng Web trên Máy cá nhân (Local Laptop)
 1. **Clone repository về máy:**
    ```bash
    git clone https://github.com/your-username/Intro-to-AI-Project.git
    cd Intro-to-AI-Project
    ```
 
-2. **Khởi tạo môi trường ảo (Khuyến nghị):**
+2. **Khởi tạo môi trường ảo Python (3.10+):**
    * Trên Windows:
      ```powershell
      python -m venv venv
@@ -122,59 +134,49 @@ Intro-to-AI-Project/
      source venv/bin/activate
      ```
 
-3. **Cài đặt các thư viện cần thiết:**
+3. **Cài đặt thư viện phụ thuộc:**
    ```bash
    pip install -r requirements.txt
    ```
 
-### 5.3. Huấn luyện Mô hình (ML Training)
-Chuẩn bị dữ liệu trong thư mục `data/` theo đúng cấu trúc, sau đó chạy:
-```bash
-python train.py
-```
-Sau khi hoàn tất, trọng số tối ưu sẽ tự động được lưu vào `models/best.pt`.
-
-### 5.4. Chạy Giao diện Demo (Streamlit App)
-Khởi chạy ứng dụng Web cục bộ:
-```bash
-streamlit run app.py
-```
-Mở trình duyệt web theo địa chỉ: `http://localhost:8501`.
+4. **Khởi chạy Trạm phân loại rác ảo (Streamlit Web App):**
+   ```bash
+   streamlit run app.py
+   ```
+   Truy cập ứng dụng tại địa chỉ: `http://localhost:8501`.
 
 ---
 
-## 👥 6. Phân công Vai trò Nhóm (Team Roles)
+## 🖥️ 6. Kịch bản Sử dụng Sản phẩm (Product Workflow)
 
-| Thành viên | Vai trò | Trách nhiệm chính |
+1. **Đầu vào (Input):**
+   * **Thị giác:** Người dùng tải lên một bức ảnh chứa một hoặc nhiều vật thể rác (ví dụ: vỏ chai nhựa nằm cạnh viên pin cũ) hoặc chụp trực tiếp qua Webcam.
+   * **Ngữ cảnh (Context):** Người dùng chọn trạng thái thực tế của vật thể trên thanh công cụ:
+     * *Tình trạng vật lý:* `Sạch & Nguyên vẹn` / `Bám bẩn dầu mỡ thực phẩm` / `Nhiễm hóa chất độc hại`.
+     * *Hạ tầng tại chỗ:* `Có trạm thu hồi tái chế` / `Chỉ có thùng rác sinh hoạt chung`.
+2. **Đầu ra (Output):**
+   * **Khung ảnh trực quan:** Hiển thị Bounding Box bao quanh từng vật thể kèm nhãn `Material Entity` và độ tin cậy ($\%$).
+   * **Thẻ Phán quyết BFO (Reasoning Card):**
+     * *Trường hợp 1:* `Plastic` + `Sạch` $\rightarrow$ Gán vai trò **`Recyclable Resource`** $\rightarrow$ Chỉ định **Thùng Xanh Dương/Vàng** (Hướng dẫn: Tháo nắp, ép dẹp vỏ chai).
+     * *Trường hợp 2:* Cùng bức ảnh `Plastic` đó nhưng chọn ngữ cảnh `Nhiễm hóa chất/Dầu mỡ nặng` $\rightarrow$ Hệ thống tự động suy diễn lại, chuyển vai trò thành **`Non-Recyclable / Hazardous Waste`** $\rightarrow$ Cảnh báo bỏ vào **Thùng Đỏ/Xám** để không làm hỏng lô nhựa tái chế.
+
+---
+
+## 👥 7. Phân công Vai trò Nhóm (Team Roles)
+
+| Thành viên | Vai trò | Nhiệm vụ cụ thể |
 | :--- | :--- | :--- |
-| **TV1** | **Project Manager & Architect** | Thiết lập kiến trúc PEAS, $(T, P, E)$, cấu trúc repo và kết nối các module |
-| **TV2** | **Data Engineer** | Thu thập dataset (TACO, TrashNet), lọc làm sạch, chia train/test (80/20) |
-| **TV3** | **Machine Learning Engineer** | Viết pipeline huấn luyện `train.py`, tinh chỉnh mô hình, xuất `best.pt` |
-| **TV4** | **Knowledge Engineer** | Xây dựng cơ sở tri thức `waste_rules.py` và tập luật suy diễn |
-| **TV5** | **UI/UX & Tester** | Xây dựng giao diện `app.py` với Streamlit, tích hợp và chạy kịch bản kiểm thử |
+| **TV1** | **System Architect & Lead** | Thiết kế kiến trúc kết nối 2 bài báo; lập bảng ánh xạ thực thể BFO (`Material` $\rightarrow$ `Disposition` $\rightarrow$ `Role`); vẽ sơ đồ Ontology trên Protégé. |
+| **TV2** | **Data Engineer** | Tải dataset 7.3k ảnh từ Roboflow; viết script `scripts/remap_labels.py` gom 18 nhãn về 6 nhãn chuẩn; cấu hình `data.yaml` và thống kê phân phối dữ liệu. |
+| **TV3** | **ML Engineer** | Thiết lập notebook `train_yolov12_colab.ipynb`; chạy huấn luyện YOLOv12 trên GPU T4 của Google Colab; trích xuất `best.pt` và các biểu đồ đánh giá (mAP, Confusion Matrix). |
+| **TV4** | **Knowledge Engineer** | Lập trình module `knowledge/waste_rules.py` hiện thực hóa cấu trúc lớp BFO và hàm suy diễn vai trò rác dựa trên ngữ cảnh theo đúng 3 điều kiện của Paper 2. |
+| **TV5** | **UI/UX & Integration** | Xây dựng giao diện `app.py` bằng Streamlit; tích hợp mô hình `best.pt` và bộ suy luận `waste_rules.py`; thiết kế thanh chọn ngữ cảnh và chạy kiểm thử kịch bản demo. |
 
 ---
 
-## 📅 7. Kế hoạch Thực hiện 4 Tuần (Roadmap)
+## 📚 8. Tài liệu Tham khảo Chính (Key References)
 
-* **Tuần 1:** Thống nhất kiến trúc PEAS, chuẩn bị môi trường, thu thập và tiền xử lý dữ liệu.
-* **Tuần 2:** Huấn luyện mô hình cơ sở (Baseline), xây dựng cơ sở tri thức và tập luật ban đầu.
-* **Tuần 3:** Tinh chỉnh mô hình (Fine-tuning), ghép nối Computer Vision với Knowledge Base và dựng giao diện Streamlit.
-* **Tuần 4:** Đánh giá hiệu năng $(P)$, kiểm thử toàn diện, hoàn thiện tài liệu báo cáo và chuẩn bị video demo.
-
----
-
-## 📚 8. Tài liệu Tham khảo & Nguồn Dữ liệu (References)
-
-* **Datasets:**
-  * [TACO (Trash Annotations in Context)](https://tacodataset.org/)
-  * [TrashNet / Garbage Classification on Kaggle](https://www.kaggle.com/datasets/mostafaabla/garbage-classification)
-  * [Trash-ICRA19 Dataset](http://marine.acfr.usyd.edu.au/datasets/)
-* **Thư viện & Công cụ:**
-  * [Ultralytics YOLOv8 Documentation](https://docs.ultralytics.com/)
-  * [Streamlit Official Documentation](https://docs.streamlit.io/)
-  * Giáo trình *Trí tuệ Nhân tạo* - Trường CNTT&TT, Đại học Bách khoa Hà Nội (HUST).
-
----
-
-> Chi tiết về quy trình cộng tác mã nguồn và đóng góp cho dự án xem tại [CONTRIBUTING.md](file:///c:/Users/Admin/Documents/GitHub/Intro-to-AI-Project/CONTRIBUTING.md).
+1. **Dipo, M. H., Farid, F. A., Mahmud, M. S. A., Momtaz, M., Rahman, S., Uddin, J., & Karim, H. A. (2025).** *Real-Time Waste Detection and Classification Using YOLOv12-Based Deep Learning Model.* Digital, 5(2), 19. https://www.mdpi.com/2673-6470/5/2/19
+2. **Milivinti, E. (2025).** *The Interoperability Challenge in Waste Management: An Ontological Approach.* Proceedings of FOIS 2025 Satellite Events, CEUR Workshop Proceedings, Vol. 4111. https://ceur-ws.org/Vol-4111/ECS_Paper_1.pdf
+3. **Dataset gốc:** [Waste-Detection Computer Vision Dataset (MMT / Roboflow Universe)](https://universe.roboflow.com/) & [YOLOv12 Waste Dataset GitHub](https://github.com/MosharofHossainDipo/yolov12_dataset).
+4. **Russell, S. J., & Norvig, P. (2020).** *Artificial Intelligence: A Modern Approach (4th ed.).* Pearson. (Giáo trình tham khảo chính học phần Nhập môn TTNT - HUST).
