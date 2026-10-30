@@ -176,7 +176,7 @@ Dự án tách biệt môi trường huấn luyện nặng (trên đám mây) v�
 
 ## 📚 8. Tài liệu Tham khảo Chính (Key References)
 
-1. **Dipo, M. H., Farid, F. A., Mahmud, M. S. A., Momtaz, M., Rahman, S., Uddin, J., & Karim, H. A. (2025).** *Real-Time Waste Detection and Classification Using YOLOv12-Based Deep Learning Model.* Digital, 5(2), 19. https://doi.org/10.3390/digital5020019
-2. **Milivinti, E. (2025).** *The Interoperability Challenge in Waste Management: An Ontological Approach.* Proceedings of FOIS 2025 Satellite Events, CEUR Workshop Proceedings, Vol. 4111.
+1. **Dipo, M. H., Farid, F. A., Mahmud, M. S. A., Momtaz, M., Rahman, S., Uddin, J., & Karim, H. A. (2025).** *Real-Time Waste Detection and Classification Using YOLOv12-Based Deep Learning Model.* Digital, 5(2), 19. https://www.mdpi.com/2673-6470/5/2/19
+2. **Milivinti, E. (2025).** *The Interoperability Challenge in Waste Management: An Ontological Approach.* Proceedings of FOIS 2025 Satellite Events, CEUR Workshop Proceedings, Vol. 4111. https://ceur-ws.org/Vol-4111/ECS_Paper_1.pdf
 3. **Dataset gốc:** [Waste-Detection Computer Vision Dataset (MMT / Roboflow Universe)](https://universe.roboflow.com/) & [YOLOv12 Waste Dataset GitHub](https://github.com/MosharofHossainDipo/yolov12_dataset).
 4. **Russell, S. J., & Norvig, P. (2020).** *Artificial Intelligence: A Modern Approach (4th ed.).* Pearson. (Giáo trình tham khảo chính học phần Nhập môn TTNT - HUST).
