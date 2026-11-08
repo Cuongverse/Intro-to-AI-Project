@@ -153,6 +153,6 @@ git push -u origin feature/ten-tinh-nang-cua-ban
 
 ## 💬 7. Kênh Liên Lạc & Giải Quyết Vấn Đề
 
-* Nếu gặp lỗi kỹ thuật hoặc xung đột code khi `git pull`: **Không tự ý force push (`git push -f`)**. Hãy thông báo ngay lên nhóm Zalo/Discord của nhóm để cùng giải quyết.
-* Khi có ý tưởng mới về cơ sở tri thức hay giao diện, hãy bàn bạc thống nhất với TV1 và cả nhóm trước khi triển khai.
+* Nếu gặp lỗi kỹ thuật hoặc xung đột code khi `git pull`: **Không tự ý force push (`git push -f`)**. Hãy thông báo ngay lên nhóm để cùng giải quyết.
+* Khi có ý tưởng mới về cơ sở tri thức hay giao diện, hãy bàn bạc thống nhất với cả nhóm trước khi triển khai.
 
