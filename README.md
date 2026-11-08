@@ -128,7 +128,7 @@ Kho lưu trữ đã tích hợp sẵn trọng số `models/best.pt` đã huấn 
 
 1. **Clone repository về máy:**
    ```bash
-   git clone [https://github.com/your-username/Intro-to-AI-Project.git](https://github.com/your-username/Intro-to-AI-Project.git)
+   git clone [https://github.com/Cuongverse/Intro-to-AI-Project.git](https://github.com/Cuongverse/Intro-to-AI-Project.git)
    cd Intro-to-AI-Project
    ```
 
