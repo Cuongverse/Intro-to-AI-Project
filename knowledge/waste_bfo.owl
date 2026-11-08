@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.hust.edu.vn/ai/ontologies/2025/waste-bfo#"
+     xml:base="http://www.hust.edu.vn/ai/ontologies/2025/waste-bfo"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:bfo="http://purl.obolibrary.org/obo/">
+
+    <owl:Ontology rdf:about="http://www.hust.edu.vn/ai/ontologies/2025/waste-bfo">
+        <rdfs:label xml:lang="en">BFO-Based Context-Aware Waste Management Ontology</rdfs:label>
+        <rdfs:comment xml:lang="vi">Bản thể học phân loại rác thải dựa trên ngữ cảnh theo khung Basic Formal Ontology (Milivinti, 2025) kết hợp đầu ra thị giác YOLOv12 (Dipo et al., 2025).</rdfs:comment>
+        <owl:versionInfo>1.0.0</owl:versionInfo>
+    </owl:Ontology>
+
+    <!-- ===================================================================== -->
+    <!-- 1. KHAI BÁO CÁC QUAN HỆ ĐỐI TƯỢNG (OBJECT PROPERTIES - FIGURE 1)      -->
+    <!-- ===================================================================== -->
+
+    <!-- Quan hệ: Thực thể vật chất mang Đặc tính cố hữu (has_disposition) -->
+    <owl:ObjectProperty rdf:about="#has_disposition">
+        <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+        <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/BFO_0000016"/>
+        <rdfs:label xml:lang="en">has_disposition</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- Quan hệ: Thực thể vật chất có Công năng thiết kế (has_function) -->
+    <owl:ObjectProperty rdf:about="#has_function">
+        <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+        <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/BFO_0000034"/>
+        <rdfs:label xml:lang="en">has_function</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- Quan hệ: Thực thể vật chất đảm nhận Vai trò theo ngữ cảnh (has_role) -->
+    <owl:ObjectProperty rdf:about="#has_role">
+        <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+        <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
+        <rdfs:label xml:lang="en">has_role</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- Quan hệ: Thực thể khả hiện được hiện thực hóa trong Quy trình (realized_in) -->
+    <owl:ObjectProperty rdf:about="#realized_in">
+        <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/BFO_0000017"/>
+        <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+        <rdfs:label xml:lang="en">realized_in</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- Quan hệ bộ phận (part_of): Quy trình Tái chế là một phần của Quản lý chất thải -->
+    <owl:ObjectProperty rdf:about="#part_of">
+        <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+        <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+        <rdfs:label xml:lang="en">part_of</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- ===================================================================== -->
+    <!-- 2. CÁC LỚP NỀN TẢNG CẤP CAO BFO (TOP-LEVEL BFO CLASSES - FIGURE 1)    -->
+    <!-- ===================================================================== -->
+
+    <!-- BFO:0000040 - Material Entity (Thực thể vật chất độc lập) -->
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/BFO_0000040">
+        <rdfs:label xml:lang="en">Material Entity (BFO:0000040)</rdfs:label>
+    </owl:Class>
+
+    <!-- BFO:0000017 - Realizable Entity (Thực thể khả hiện) -->
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/BFO_0000017">
+        <rdfs:label xml:lang="en">Realizable Entity (BFO:0000017)</rdfs:label>
+    </owl:Class>
+
+    <!-- BFO:0000016 - Disposition (Đặc tính cố hữu - Con của Realizable Entity) -->
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/BFO_0000016">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000017"/>
+        <rdfs:label xml:lang="en">Disposition (BFO:0000016)</rdfs:label>
+    </owl:Class>
+
+    <!-- BFO:0000023 - Role (Vai trò phụ thuộc ngữ cảnh - Con của Realizable Entity) -->
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/BFO_0000023">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000017"/>
+        <rdfs:label xml:lang="en">Role (BFO:0000023)</rdfs:label>
+    </owl:Class>
+
+    <!-- BFO:0000034 - Function (Công năng thiết kế - Con của Disposition) -->
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/BFO_0000034">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000016"/>
+        <rdfs:label xml:lang="en">Function (BFO:0000034)</rdfs:label>
+    </owl:Class>
+
+    <!-- BFO:0000015 - Process (Quy trình hoạt động) -->
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/BFO_0000015">
+        <rdfs:label xml:lang="en">Process (BFO:0000015)</rdfs:label>
+    </owl:Class>
+
+    <!-- ===================================================================== -->
+    <!-- 3. SÁU LỚP THỰC THỂ VẬT CHẤT TỪ YOLOv12 (DOMAIN MATERIAL ENTITIES)    -->
+    <!-- ===================================================================== -->
+
+    <owl:Class rdf:about="#Plastic">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+        <rdfs:label xml:lang="en">Plastic Artifact</rdfs:label>
+        <rdfs:comment xml:lang="vi">Nhựa và bao bì Polymer (PET, HDPE, Túi nilon, Tuýp nhựa) - Class ID 0</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Metal_Battery">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+        <rdfs:label xml:lang="en">Electrochemical Battery and Metal</rdfs:label>
+        <rdfs:comment xml:lang="vi">Pin, Ắc quy và kim loại chứa hóa chất điện phân - Class ID 1</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Paper">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+        <rdfs:label xml:lang="en">Cellulose Paper Product</rdfs:label>
+        <rdfs:comment xml:lang="vi">Giấy viết, báo chí và bìa Carton - Class ID 2</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Glass">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+        <rdfs:label xml:lang="en">Silicate Glass Container</rdfs:label>
+        <rdfs:comment xml:lang="vi">Chai lọ và vật dụng thủy tinh - Class ID 3</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Organic">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+        <rdfs:label xml:lang="en">Biological Organic Matter</rdfs:label>
+        <rdfs:comment xml:lang="vi">Thực phẩm thừa và phế phẩm hữu cơ sinh học - Class ID 4</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Medical">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+        <rdfs:label xml:lang="en">Clinical Medical Artifact</rdfs:label>
+        <rdfs:comment xml:lang="vi">Vật tư y tế thải bỏ (Bơm kim tiêm, khẩu trang, găng tay, vỉ thuốc) - Class ID 5</rdfs:comment>
+    </owl:Class>
+
+    <!-- ===================================================================== -->
+    <!-- 4. CÁC LỚP ĐẶC TÍNH CỐ HỮU & CÔNG NĂNG (DISPOSITIONS & FUNCTIONS)     -->
+    <!-- ===================================================================== -->
+
+    <owl:Class rdf:about="#MechanicalRecyclability">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000016"/>
+        <rdfs:label xml:lang="en">Mechanical Recyclability Disposition</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Biodegradability">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000016"/>
+        <rdfs:label xml:lang="en">Biodegradability Disposition</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#ToxicityHazard">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000016"/>
+        <rdfs:label xml:lang="en">Chemical Toxicity Hazard Disposition</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#InfectiousBiohazard">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000016"/>
+        <rdfs:label xml:lang="en">Infectious Biohazard Disposition</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#PackagingContainmentFunction">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000034"/>
+        <rdfs:label xml:lang="en">Packaging and Containment Function</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#EnergyStorageFunction">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000034"/>
+        <rdfs:label xml:lang="en">Electrochemical Energy Storage Function</rdfs:label>
+    </owl:Class>
+
+    <!-- ===================================================================== -->
+    <!-- 5. CÁC LỚP VAI TRÒ ĐỘNG THEO NGỮ CẢNH (CONTEXT-DEPENDENT BFO ROLES)   -->
+    <!-- ===================================================================== -->
+
+    <owl:Class rdf:about="#RecyclableResourceRole">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
+        <rdfs:label xml:lang="en">Recyclable Resource Role</rdfs:label>
+        <rdfs:comment xml:lang="vi">Vai trò Tài nguyên Tái chế -> Chỉ định Thùng Vàng</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#OrganicCompostRole">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
+        <rdfs:label xml:lang="en">Organic Compost Role</rdfs:label>
+        <rdfs:comment xml:lang="vi">Vai trò Nguyên liệu Hữu cơ -> Chỉ định Thùng Xanh Lá</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#ResidualWasteRole">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
+        <rdfs:label xml:lang="en">Residual Waste Role</rdfs:label>
+        <rdfs:comment xml:lang="vi">Vai trò Rác Sinh hoạt Còn lại (khi thỏa mãn điều kiện a, b, c của Milivinti) -> Chỉ định Thùng Xám/Trắng</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#HazardousWasteRole">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
+        <rdfs:label xml:lang="en">Hazardous Waste Role</rdfs:label>
+        <rdfs:comment xml:lang="vi">Vai trò Rác Nguy hại Đặc biệt (Zero-tolerance) -> Chỉ định Thùng Đỏ</rdfs:comment>
+    </owl:Class>
+
+    <!-- ===================================================================== -->
+    <!-- 6. CÁC QUY TRÌNH XỬ LÝ (PROCESSES - BFO:0000015)                      -->
+    <!-- ===================================================================== -->
+
+    <owl:Class rdf:about="#WasteManagementProcess">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+        <rdfs:label xml:lang="en">Waste Management Process</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#RecyclingProcess">
+        <rdfs:subClassOf rdf:resource="#WasteManagementProcess"/>
+        <rdfs:label xml:lang="en">Recycling Process</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#HazardousContainmentProcess">
+        <rdfs:subClassOf rdf:resource="#WasteManagementProcess"/>
+        <rdfs:label xml:lang="en">Hazardous Containment Process</rdfs:label>
+    </owl:Class>
+
+</rdf:RDF>
