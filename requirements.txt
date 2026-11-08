@@ -1,19 +1,14 @@
-# Deep Learning & Computer Vision
-ultralytics>=8.0.0
-opencv-python>=4.8.0
-pillow>=10.0.0
-torch>=2.0.0
-torchvision>=0.15.0
+# 1. Tầng Nhận diện (Perception): Chạy suy luận (Inference) mô hình YOLOv12 từ file best.pt
+ultralytics>=8.3.0
 
-# Data processing & Visualization
-numpy>=1.24.0
-pandas>=2.0.0
-matplotlib>=3.7.0
-seaborn>=0.12.0
+# 2. Tầng Giao diện (UI Layer): Xây dựng Web Dashboard tương tác tại trạm phân loại
+streamlit>=1.38.0
 
-# Web Application
-streamlit>=1.30.0
+# 3. Xử lý ảnh & Ma trận (Sensors Pre-processing): Đọc frame ảnh/webcam và chuẩn hóa 640x640
+opencv-python-headless>=4.10.0.84
+Pillow>=10.4.0
+numpy>=1.26.4
+PyYAML>=6.0.2
 
-# Knowledge Base & Utilities
-pyyaml>=6.0
-
+# 4. Tầng Suy luận Tri thức (Reasoning Layer): Hỗ trợ đọc/suy diễn file BFO Ontology (.owl) nếu cần
+owlready2>=0.46
