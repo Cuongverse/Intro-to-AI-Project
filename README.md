@@ -144,6 +144,19 @@ Kho lưu trữ đã tích hợp sẵn trọng số `models/best.pt` đã huấn 
      source venv/bin/activate
      ```
 
+   * Xử lý lỗi Execution Policy khi kích hoạt venv (Dành riêng cho Windows PowerShell)
+
+   Nếu gặp lỗi màu đỏ có dòng chữ `... cannot be loaded because running scripts is disabled on this system` khi chạy lệnh kích hoạt `.\venv\Scripts\Activate.ps1`, đó là do cơ chế bảo mật mặc định của Windows chặn chạy script.
+   
+   Hãy copy và chạy lệnh dưới đây để tạm thời cấp quyền thực thi cho phiên Terminal hiện tại, sau đó gọi lại lệnh kích hoạt:
+   
+   ```powershell
+   # 1. Cấp quyền thực thi script (Chỉ áp dụng cho tiến trình PowerShell hiện tại, tự động hủy khi tắt Terminal để đảm bảo bảo mật)
+   Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+   
+   # 2. Kích hoạt lại môi trường ảo
+   .\venv\Scripts\Activate.ps1
+
 3. **Cài đặt thư viện phụ thuộc:**
    ```bash
    pip install --upgrade pip
